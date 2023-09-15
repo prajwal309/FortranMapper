@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Network Graph</title>
+  <!-- Include vis.js library -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
+  <!-- Include your network data JavaScript file -->
+  <script src="data2Visualize/MainFile2Visualize.js"></script>
+  <style>
+    /* Adjust the size of the network container */
+    #network {
+      width: 100%;
+      height: 800px; /* Adjust the height as needed */
+    }
+  </style>
+</head>
+<body>
+  <div id="network"></div>
+
+  <script>
+    // Create a new network instance using the imported data
+    const container = document.getElementById('network');
+    const options = {};
+    var network = new vis.Network(container, networkData, options);
+
+    network.on('click', function (event) {
+
+      const { nodes } = event;
+      
+      if (nodes.length === 1) {
+       // Get the ID of the clicked node
+        const nodeId = nodes[0];
+        console.log(nodeId);
+        var clickedNode = networkData.nodes[nodeId-1];
+
+        // Extract and display the label (text) of the clicked node
+        const nodeLabel = clickedNode.label;
+        
+
+        // Define a new color for the clicked node (e.g., red)
+        const newColor = {
+          background: 'red', // You can use any valid CSS color here
+          border: 'black'     // Optional: You can set the border color as well
+        };
+
+        // Update the color attribute of the clicked node in your data
+        //clickedNode.color = newColor;
+
+        // Update the network to reflect the new color
+        //network.setData(networkData);
+
+      }
+    });
+  </script>
+</body>
+</html>
